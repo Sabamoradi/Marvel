@@ -1,36 +1,40 @@
 <template>
-  <Home :homedata="characters"/>
+  <div>
+    <Home :homedata="characters" />
+    <Pagination v-if="pageItem" :pageItem="pageItem" :count="count" :limit="limit" @changePage="getCharacters"/>
+  </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import Home from '@/container/Home/index.vue'
+import Vue from "vue";
+import Home from "@/container/Home/index.vue";
 export default Vue.extend({
-  name: 'IndexPage',
-  components:{
-    Home
+  name: "IndexPage",
+  components: {
+    Home,
   },
-  data(){
-    return{
-      characters:null
-    }
+  data() {
+    return {
+      characters: null,
+      pageItem:null,
+      limit:20,
+      count:0
+    };
   },
-  async created(){
-    this.characters = await this.getCharacters()
-    
-    console.log('aaaaa',this.characters);
+  async created() {
+    this.characters = await this.getCharacters();
   },
-  methods:{
-    async getCharacters() {
+  methods: {
+    async getCharacters(value) {
       try {
-        const response = await this.$services.characters.getCharacters()
-        console.log(response.data);
-        return response.data.data.results
-        
+        const response = await this.$services.characters.getCharacters(value);
+        this.pageItem = response.data.data.total
+        this.count = response.data.data.limit
+        return response.data.data.results;
       } catch (error) {
         console.log(error);
       }
     },
-  }
-})
+  },
+});
 </script>
