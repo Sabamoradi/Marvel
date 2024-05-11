@@ -53,7 +53,8 @@ export default Vue.extend({
     return {
       items: 0,
       showNumber: 1,
-      serverLimit:0
+      serverLimit:0,
+      
     };
   },
   mounted() {
@@ -68,7 +69,7 @@ export default Vue.extend({
         return;
       } else {
         this.showNumber = this.showNumber - 1;
-        this.serverLimit = this.count - 10
+        this.serverLimit = this.count - 20
         this.$emit('changePage',this.serverLimit)
       }
     },
@@ -77,7 +78,7 @@ export default Vue.extend({
         return;
       } else {
         this.showNumber = this.showNumber + 1;
-        this.serverLimit = this.count + 10
+        this.serverLimit = this.count + 20
         this.$emit('changePage',this.serverLimit)
       }
     },

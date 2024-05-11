@@ -18,20 +18,22 @@ export default Vue.extend({
       characters: null,
       pageItem:null,
       limit:20,
-      count:0
+      count:0,
+      offset:0
     };
   },
-  async created() {
-    this.characters = await this.getCharacters();
+   created() {
+    this.getCharacters();
   },
   methods: {
     async getCharacters(value) {
       let search = this.$route.query.s
+      this.offset = value ? this.offset + this.count : 0
       try {
-        const response = await this.$services.characters.getCharacters(value,search);
+        const response = await this.$services.characters.getCharacters(this.offset,search);
         this.pageItem = response.data.data.total
         this.count = response.data.data.limit
-        return response.data.data.results;
+        this.characters = response.data.data.results
       } catch (error) {
         console.log(error);
       }
