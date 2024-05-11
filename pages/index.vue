@@ -26,8 +26,9 @@ export default Vue.extend({
   },
   methods: {
     async getCharacters(value) {
+      let search = this.$route.query.s
       try {
-        const response = await this.$services.characters.getCharacters(value);
+        const response = await this.$services.characters.getCharacters(value,search);
         this.pageItem = response.data.data.total
         this.count = response.data.data.limit
         return response.data.data.results;
