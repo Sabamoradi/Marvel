@@ -15,7 +15,7 @@ export default Vue.extend({
       characters:null
     }
   },
-  async fetch(){
+  async created(){
     this.characters = await this.getCharacters()
     
     console.log('aaaaa',this.characters);
@@ -24,6 +24,7 @@ export default Vue.extend({
     async getCharacters() {
       try {
         const response = await this.$services.characters.getCharacters()
+        console.log(response.data);
         return response.data.data.results
         
       } catch (error) {

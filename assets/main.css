@@ -2,10 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (max-width: 767px) {
+
+body{
+    background-color: #2C2E30;
+}
+@media (max-width: 1024px) {
+    .item_wrapper{
+        min-width: 33% !important;
+    }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 768px) {
+    .item_wrapper{
+        min-width: 50% !important;
+    }
 }
+@media (max-width: 592px) {
+    .item_wrapper{
+        min-width: 100% !important;
+    }
+}
+
 
 

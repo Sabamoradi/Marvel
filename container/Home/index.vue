@@ -1,7 +1,9 @@
 <template>
   <div class="layout">
     <Header />
-    {{homedata}}
+    <div class="container mx-auto flex item_container">
+    <CharacterItem v-for="(item) in homedata" :key="item.id" :homeItem="item" />
+    </div>
   </div>
 </template>
 
@@ -19,4 +21,7 @@ export default Vue.extend({
 });
 </script>
 <style lang="css" scoped>
+.item_container{
+  flex-wrap: wrap;
+}
 </style>
