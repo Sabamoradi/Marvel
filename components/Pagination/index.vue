@@ -85,6 +85,5 @@ export default Vue.extend({
   },
 });
 </script>
-<style lang="css" scoped>
-</style>
+
 

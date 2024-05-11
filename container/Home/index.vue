@@ -33,7 +33,7 @@ export default Vue.extend({
   },
 });
 </script>
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .item_container {
   flex-wrap: wrap;
 }
