@@ -1,7 +1,7 @@
 <template>
   <div class="header_container">
     <div class="container mx-auto">
-      <div class="logo"><p>logo</p></div>
+      <Logo/>
       <div
         class="flex items-center justify-between input_wrapper mt-12 mb-5 relative"
       >

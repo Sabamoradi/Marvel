@@ -1,10 +1,7 @@
 <template>
   <div class="item_wrapper">
     <div class="item">
-      <img
-        :src="`${homeItem.thumbnail.path}/portrait_medium.${homeItem.thumbnail.extension}`"
-        :alt="homeItem.name"
-      />
+      <img :src="imgUrl" :alt="homeItem.name" />
       <div class="text">
         <p>
           {{ homeItem.name }}
@@ -23,6 +20,11 @@ export default Vue.extend({
     homeItem: {
       default: () => {},
       type: Object,
+    },
+  },
+  computed: {
+    imgUrl() {
+      return `${this.homeItem.thumbnail.path}/portrait_medium.${this.homeItem.thumbnail.extension}`;
     },
   },
 });

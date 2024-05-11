@@ -10,4 +10,7 @@ export default ($axios: { get: (arg0: string) => any; }) => ({
   getCharacterData(characterId:number){
     return $axios.get(`${apiBaseURL}/characters/${characterId}?${createURL()}`)
   },
+  getCharacterComics(characterId:number){
+    return $axios.get(`${apiBaseURL}/characters/${characterId}/comics?${createURL()}`)
+  },
 });
