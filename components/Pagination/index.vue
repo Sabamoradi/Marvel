@@ -11,11 +11,11 @@
           > <img src="~/assets/img/keyboard_arrow_left.svg" />  </div
         >
       </li>
-      <li>
-        <a
-          href="#"
+      <li class="flex">
+        <div
+          v-for="item in paginationItem" :key="`i${item}`"
           class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-dark dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >{{ showNumber }}</a
+          >{{ item }}</div
         >
       </li>
       <li @click="next">
@@ -54,6 +54,7 @@ export default Vue.extend({
       items: 0,
       showNumber: 1,
       serverLimit:0,
+      paginationItem : [1,2,,3,4,5]
       
     };
   },
@@ -63,24 +64,25 @@ export default Vue.extend({
   methods: {
     calculatePageItem() {
       this.items = Math.ceil(this.pageItem / this.limit);
+
     },
     prev() {
-      if (this.showNumber === 1) {
-        return;
-      } else {
+      if(this.showNumber > 1){
         this.showNumber = this.showNumber - 1;
         this.serverLimit = this.count - 20
         this.$emit('changePage',this.serverLimit)
+        
+        
       }
     },
     next() {
-      if (this.showNumber === this.items) {
-        return;
-      } else {
+      if (this.showNumber < this.items) {
         this.showNumber = this.showNumber + 1;
         this.serverLimit = this.count + 20
         this.$emit('changePage',this.serverLimit)
-      }
+        this.paginationItem = this.paginationItem.map((el)=> el && el+1)
+        console.log(this.paginationItem,'aaaa');
+      } 
     },
   },
 });

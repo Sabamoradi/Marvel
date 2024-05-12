@@ -42,7 +42,6 @@ export default Vue.extend({
         );
         this.pageItem = response.data.data.total;
         this.count = response.data.data.limit;
-        console.log(this.count);
         return response.data.data.results;
       } catch (error) {
         console.log(error);
