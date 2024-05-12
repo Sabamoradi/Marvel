@@ -18,13 +18,25 @@
         </div>
       </div>
     </div>
-    <div class="others container mx-auto flex" v-if="character">
+    <div class="others container mx-auto" v-if="character">
       <h2>comics</h2>
-      <CharacterItem
-        v-for="(item, index) in comics"
-        :key="`${index}comics`"
-        :homeItem="item"
-      />
+      <div class="flex flex-wrap other_item">
+        <CharacterItem
+          v-for="(item, index) in comics"
+          :key="`${index}comics`"
+          :homeItem="item"
+        />
+      </div>
+    </div>
+    <div class="others container mx-auto" v-if="series">
+      <h2>series</h2>
+      <div class="flex flex-wrap other_item">
+        <CharacterItem
+          v-for="(item, index) in series"
+          :key="`${index}series`"
+          :homeItem="item"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -40,12 +52,14 @@ export default Vue.extend({
   data() {
     return {
       character: null,
-      comics:null
+      comics: null,
+      series: null,
     };
   },
-  async created() {
+  async fetch() {
     this.character = await this.getCharacterDetail();
     this.comics = await this.getCharacterComics();
+    this.series = await this.getCharacterSeries();
   },
   methods: {
     async getCharacterDetail() {
@@ -63,7 +77,17 @@ export default Vue.extend({
         const response = await this.$services.characters.getCharacterComics(
           this.$route.params.charId
         );
-        return response.data.data.results
+        return response.data.data.results;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getCharacterSeries() {
+      try {
+        const response = await this.$services.characters.getCharacterSeries(
+          this.$route.params.charId
+        );
+        return response.data.data.results;
       } catch (error) {
         console.log(error);
       }
@@ -72,12 +96,13 @@ export default Vue.extend({
 });
 </script>
 <style lang="scss" scoped>
+@import '@/assets/scss/_variables.scss';
 .details_wrraper {
   background: linear-gradient(90deg, #2c2e30 3%, #0e0e0e 80%);
   padding-bottom: 64px;
   .detail_wrapper {
     margin-top: 72px;
-    color: #fff;
+    color: $white;
 
     .img_wrapper {
       width: 240px;
@@ -87,6 +112,9 @@ export default Vue.extend({
         width: 100%;
         height: 100%;
       }
+    }
+    .description{
+      width: 60%;
     }
     .name {
       font-size: 32px;
@@ -100,5 +128,10 @@ export default Vue.extend({
 .others {
   margin-top: 64px;
   flex-wrap: wrap;
+  h2{
+    color: $white;
+    font-size: 24px;
+    font-weight: 500;
+  }
 }
 </style>

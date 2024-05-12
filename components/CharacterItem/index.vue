@@ -1,10 +1,15 @@
 <template>
   <div class="item_wrapper">
     <div class="item">
-      <img :src="imgUrl" :alt="homeItem.name" />
+      <div class="img_wrapper">
+        <img
+          :src="`${this.homeItem.thumbnail.path}/portrait_medium.${this.homeItem.thumbnail.extension}`"
+          :alt="homeItem.name"
+        />
+      </div>
       <div class="text">
         <p>
-          {{ homeItem.name }}
+          {{ title }}
         </p>
       </div>
     </div>
@@ -23,26 +28,37 @@ export default Vue.extend({
     },
   },
   computed: {
-    imgUrl() {
-      return `${this.homeItem.thumbnail.path}/portrait_medium.${this.homeItem.thumbnail.extension}`;
+    title() {
+      if (this.homeItem.name) {
+        return this.homeItem.name;
+      } else {
+        return this.homeItem.title;
+      }
     },
   },
 });
 </script>
 <style lang="scss" scoped>
+@import "@/assets/scss/_variables.scss";
 .item_wrapper {
   min-width: 25%;
   padding: 16px 12px 0 12px;
-  img {
+  .img_wrapper {
     height: 470px;
     padding: 16px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .text {
     padding: 16px;
+    color: $white;
   }
   .item {
-    border: 1px solid #404244;
+    border: 1px solid $blue-04;
     border-radius: 16px;
     cursor: pointer;
   }
